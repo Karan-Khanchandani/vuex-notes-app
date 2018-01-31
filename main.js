@@ -5,5 +5,6 @@ import App from './components/App.vue'
 new Vue({
     store,
     el: 'body',
-    components: {App}
+    components: {App},
+    render: h => h(App)
 })

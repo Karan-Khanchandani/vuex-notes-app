@@ -9,16 +9,15 @@
 </template>
 
 <script>
-import { editNote } from '../vuex/actions'
+//import { editNote } from '../vuex/actions'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
-  vuex: {
-    getters: {
-      activeNoteText: state => state.activeNote.text
-    },
-    actions: {
-      editNote
-    }
-  }
+    computed :  mapGetters({
+            activeNoteText: 'activeNoteText'
+        }),
+        methods : mapActions([
+            'editNote'
+        ])
 }
 </script>

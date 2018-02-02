@@ -30,5 +30,66 @@ app.get('/notes', (req, res) => {
     }).sort({_id:-1})
 });
 
+app.post('/notes', (req, res) => {
+    var title = req.params.title;
+    var notes = req.params.notes;
+
+    var new_note = new Note({
+        title: title,
+        notes: notes
+    });
+
+    new_note.save(function(error){
+        if(error){
+          console.log(error);
+        }
+          res.send({
+            success: true,
+            message: 'Post saved successfully!'
+          })
+        
+      });
+
+});
+
+app.get('/notes/:id', (req, res) => {
+    Note.findById(req.params.id,'title notes', function(error, notes){
+        if(error){
+            console.log(error);
+        }
+        res.send({
+            notes: notes
+        })
+    })
+});
+
+app.put('/notes/:id', (req, res) => {
+    Note.findById(req.params.id,'title notes', function(error, notes){
+        if(error){
+            console.log(error);
+        }
+        notes.title = req.body.title
+        notes.notes = req.body.notes
+        notes.save(function(error){
+            if(error){
+                console.log(error)
+            }
+            res.send({
+                success: true
+            })
+        })
+    })
+});
+
+app.delete('/notes/:id', (req, res) => {
+    Note.remove({
+        _id: req.params.id
+    }, function(err, note){
+        if(err)
+        res.send(err)
+        res.send({success:true})
+    })
+});
+
 
 app.listen(process.env.PORT || 8081);

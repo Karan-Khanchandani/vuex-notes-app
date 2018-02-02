@@ -25,15 +25,16 @@ app.get('/notes', (req, res) => {
             console.log(error);
         }
         res.send({
-            notes: notes
+            notes
         })
     }).sort({_id:-1})
 });
 
 app.post('/notes', (req, res) => {
-    var title = req.params.title;
-    var notes = req.params.notes;
-    var favorite = req.params.favorite;
+    var title = req.body.title;
+    var notes = req.body.notes;
+    var favorite = req.body.favorite;
+    debugger
 
     var new_note = new Note({
         title: title,
@@ -60,7 +61,7 @@ app.get('/notes/:id', (req, res) => {
             console.log(error);
         }
         res.send({
-            notes: notes
+            notes
         })
     })
 });
@@ -93,6 +94,7 @@ app.delete('/notes/:id', (req, res) => {
         res.send({success:true})
     })
 });
+
 
 
 app.listen(process.env.PORT || 8081);

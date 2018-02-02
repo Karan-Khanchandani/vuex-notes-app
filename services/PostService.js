@@ -1,4 +1,4 @@
-import Api from '@/services/Api'
+import Api from './Api'
 
 export default {
   fetchNotes () {
@@ -9,8 +9,8 @@ export default {
     return Api().post('notes', params)
   },
 
-  updateNote (params) {
-    return Api().put('notes/' + params.id, params)
+  updateNote (id,params) {
+    return Api().put('notes/' + id, params)
   },
 
   getNote (params) {

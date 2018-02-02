@@ -4,7 +4,8 @@
     <i @click="toggleFavorite"
       class="glyphicon glyphicon-star"
       :class="{starred: activeNote.favorite}"></i>
-    <i @click="deleteNote" class="glyphicon glyphicon-remove"></i>
+    <i @click="deleteNote(activeNote._id)" class="glyphicon glyphicon-trash"></i>
+    <i @click="saveNote(activeNote)" class="glyphicon glyphicon-floppy-disk"></i>
   </div>
 </template>
 
@@ -17,7 +18,8 @@ export default {
     methods : mapActions([
         'addNote',
       'deleteNote',
-      'toggleFavorite'
+      'toggleFavorite',
+      'saveNote'
     ])
 }
 

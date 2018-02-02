@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import PostService from '../services/PostServices'
+import PostService from '../services/PostService'
 
 Vue.use(Vuex)
 
@@ -12,7 +12,7 @@ const state = {
 const actions = {
     getNotes({commit}) {
         PostService.fetchNotes().then((response) =>{
-            commit('SET_NOTES', { notes: response.data })
+            commit('SET_NOTES', { notes: response.data.notes })
         }, (err) => {
             console.log(err)
         })
@@ -20,6 +20,11 @@ const actions = {
     addNote({
         commit
     }) {
+        var note = {
+            title: 'New Note',
+            notes : '',
+            favorite: false
+        }
         PostService.addNote(note).then((response) => {
             commit('ADD_NOTE',note)
         }, (err) => {
@@ -29,9 +34,9 @@ const actions = {
     },
 
     saveNote({
-        commit
-    }) {
-        PostService.updateNote(note).then((response) => {
+        commit, state
+    },note) {
+        PostService.updateNote(note._id, note).then((response) => {
             commit('SAVE_NOTE',note)
         }, (err) => {
             console.log(err)
@@ -47,8 +52,8 @@ const actions = {
 
     deleteNote({
         commit
-    }) {
-        PostService.deleteNote(note).then((response) => {
+    },id) {
+        PostService.deleteNote(id).then((response) => {
             commit('DELETE_NOTE')
         }, (err) => {
             console.log(err)
@@ -73,9 +78,12 @@ const mutations = {
         state.notes.push(newNote)
         state.activeNote = newNote
     },
+    SAVE_NOTE(state, note){
+
+    },
 
     EDIT_NOTE(state, text) {
-        state.activeNote.text = text
+        state.activeNote.notes = text
     },
 
     DELETE_NOTE(state) {
@@ -91,14 +99,14 @@ const mutations = {
         state.activeNote = note
     },
     SET_NOTES(state, notes){
-        state.notes = notes
+        state.notes = notes.notes
     }
 }
 
 const getters = {
     notes: state => state.notes,
     activeNote: state => state.activeNote,
-    activeNoteText: state => state.activeNote.text
+    activeNoteText: state => state.activeNote.notes
     
 }
 

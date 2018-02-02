@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import PostService from '../services/PostServices'
 
 Vue.use(Vuex)
 
@@ -9,10 +10,33 @@ const state = {
 }
 
 const actions = {
+    getNotes({commit}) {
+        PostService.fetchNotes().then((response) =>{
+            commit('SET_NOTES', { notes: response.data })
+        }, (err) => {
+            console.log(err)
+        })
+    },
     addNote({
         commit
     }) {
-        commit('ADD_NOTE')
+        PostService.addNote(note).then((response) => {
+            commit('ADD_NOTE',note)
+        }, (err) => {
+            console.log(err)
+        })
+        
+    },
+
+    saveNote({
+        commit
+    }) {
+        PostService.updateNote(note).then((response) => {
+            commit('SAVE_NOTE',note)
+        }, (err) => {
+            console.log(err)
+        })
+        
     },
 
     editNote({
@@ -24,7 +48,11 @@ const actions = {
     deleteNote({
         commit
     }) {
-        commit('DELETE_NOTE')
+        PostService.deleteNote(note).then((response) => {
+            commit('DELETE_NOTE')
+        }, (err) => {
+            console.log(err)
+        })
     },
 
     updateActiveNote({
@@ -41,11 +69,7 @@ const actions = {
 }
 
 const mutations = {
-    ADD_NOTE(state) {
-        const newNote = {
-            text: 'New note',
-            favorite: false
-        }
+    ADD_NOTE(state, newNote) {
         state.notes.push(newNote)
         state.activeNote = newNote
     },
@@ -65,6 +89,9 @@ const mutations = {
 
     SET_ACTIVE_NOTE(state, note) {
         state.activeNote = note
+    },
+    SET_NOTES(state, notes){
+        state.notes = notes
     }
 }
 

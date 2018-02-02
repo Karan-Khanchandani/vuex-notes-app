@@ -33,10 +33,12 @@ app.get('/notes', (req, res) => {
 app.post('/notes', (req, res) => {
     var title = req.params.title;
     var notes = req.params.notes;
+    var favorite = req.params.favorite;
 
     var new_note = new Note({
         title: title,
-        notes: notes
+        notes: notes,
+        favorite: favorite
     });
 
     new_note.save(function(error){
@@ -70,6 +72,7 @@ app.put('/notes/:id', (req, res) => {
         }
         notes.title = req.body.title
         notes.notes = req.body.notes
+        notes.favorite = req.body.favorite
         notes.save(function(error){
             if(error){
                 console.log(error)

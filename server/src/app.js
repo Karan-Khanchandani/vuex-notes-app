@@ -42,13 +42,12 @@ app.post('/notes', (req, res) => {
         favorite: favorite
     });
 
-    new_note.save(function(error){
+    new_note.save(function(error, note){
         if(error){
           console.log(error);
         }
           res.send({
-            success: true,
-            message: 'Post saved successfully!'
+            note
           })
         
       });

@@ -26,7 +26,8 @@ const actions = {
             favorite: false
         }
         PostService.addNote(note).then((response) => {
-            commit('ADD_NOTE',note)
+            debugger
+            commit('ADD_NOTE',response.data.note)
         }, (err) => {
             console.log(err)
         })
@@ -36,6 +37,7 @@ const actions = {
     saveNote({
         commit, state
     },note) {
+        debugger;
         PostService.updateNote(note._id, note).then((response) => {
             commit('SAVE_NOTE',note)
         }, (err) => {
@@ -49,7 +51,11 @@ const actions = {
     }, e) {
         commit('EDIT_NOTE', e.target.value)
     },
-
+    editTitle({
+        commit
+    }, e) {
+        commit('EDIT_TITLE', e.target.value)
+    },
     deleteNote({
         commit
     },id) {
@@ -86,6 +92,10 @@ const mutations = {
         state.activeNote.notes = text
     },
 
+    EDIT_TITLE(state, title) {
+        state.activeNote.title = title
+    },
+
     DELETE_NOTE(state) {
         var index = state.notes.indexOf(state.activeNote)
         state.notes.splice(index, 1)
@@ -106,7 +116,8 @@ const mutations = {
 const getters = {
     notes: state => state.notes,
     activeNote: state => state.activeNote,
-    activeNoteText: state => state.activeNote.notes
+    activeNoteText: state => state.activeNote.notes,
+    activeNoteTitle: state => state.activeNote.title
     
 }
 

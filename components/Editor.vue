@@ -1,5 +1,9 @@
 <template>
   <div id="note-editor">
+    <input type = "text"
+      :value="activeNoteTitle"
+      @input="editTitle"
+      class="form-control">
     <textarea
       :value="activeNoteText"
       @input="editNote"
@@ -14,10 +18,12 @@ import {mapGetters, mapActions} from 'vuex'
 
 export default {
     computed :  mapGetters({
-            activeNoteText: 'activeNoteText'
+            activeNoteText: 'activeNoteText',
+            activeNoteTitle: 'activeNoteTitle'
         }),
         methods : mapActions([
-            'editNote'
+            'editNote',
+            'editTitle'
         ])
 }
 </script>

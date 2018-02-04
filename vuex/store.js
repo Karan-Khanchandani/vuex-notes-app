@@ -6,7 +6,11 @@ Vue.use(Vuex)
 
 const state = {
     notes: [],
-    activeNote: {}
+    activeNote: {
+        title: '',
+        notes: '',
+        favorite: false
+    }
 }
 
 const actions = {
@@ -26,7 +30,6 @@ const actions = {
             favorite: false
         }
         PostService.addNote(note).then((response) => {
-            debugger
             commit('ADD_NOTE',response.data.note)
         }, (err) => {
             console.log(err)
@@ -37,7 +40,6 @@ const actions = {
     saveNote({
         commit, state
     },note) {
-        debugger;
         PostService.updateNote(note._id, note).then((response) => {
             commit('SAVE_NOTE',note)
         }, (err) => {
@@ -60,6 +62,7 @@ const actions = {
         commit
     },id) {
         PostService.deleteNote(id).then((response) => {
+            debugger;
             commit('DELETE_NOTE')
         }, (err) => {
             console.log(err)
@@ -98,7 +101,10 @@ const mutations = {
 
     DELETE_NOTE(state) {
         var index = state.notes.indexOf(state.activeNote)
-        state.notes.splice(index, 1)
+        if (index > -1) {
+            state.notes.splice(index, 1)
+            state.activeNote = state.notes[0] || {}
+          }
     },
 
     TOGGLE_FAVORITE(state) {

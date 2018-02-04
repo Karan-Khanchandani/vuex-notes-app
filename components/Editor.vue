@@ -1,11 +1,11 @@
 <template>
   <div id="note-editor">
     <input type = "text"
-      :value="activeNoteTitle"
+      :value="activeNote.title"
       @input="editTitle"
       class="form-control">
     <textarea
-      :value="activeNoteText"
+      :value="activeNote.notes"
       @input="editNote"
       class="form-control">
     </textarea>
@@ -18,12 +18,12 @@ import {mapGetters, mapActions} from 'vuex'
 
 export default {
     computed :  mapGetters({
-            activeNoteText: 'activeNoteText',
-            activeNoteTitle: 'activeNoteTitle'
+            activeNote: 'activeNote'
         }),
         methods : mapActions([
             'editNote',
             'editTitle'
         ])
+        
 }
 </script>

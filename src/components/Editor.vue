@@ -13,17 +13,17 @@
 </template>
 
 <script>
-//import { editNote } from '../vuex/actions'
+// import { editNote } from '../vuex/actions'
 import {mapGetters, mapActions} from 'vuex'
 
 export default {
-    computed :  mapGetters({
-            activeNote: 'activeNote'
-        }),
-        methods : mapActions([
-            'editNote',
-            'editTitle'
-        ])
-        
+  computed: mapGetters({
+    activeNote: 'activeNote'
+  }),
+  methods: mapActions([
+    'editNote',
+    'editTitle'
+  ])
+
 }
 </script>

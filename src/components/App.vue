@@ -13,10 +13,9 @@ import Editor from './Editor.vue'
 
 export default {
   components: {
-      Toolbar,
-      NotesList,
-      Editor
+    Toolbar,
+    NotesList,
+    Editor
   }
 }
 </script>
-

@@ -55,16 +55,16 @@ export default {
     'updateActiveNote'
   ]),
   computed: Object.assign(mapGetters({
-      notes: 'notes',
-      activeNote: 'activeNote'
-    }),{
-      filteredNotes () {
-      if (this.show === 'all'){
+    notes: 'notes',
+    activeNote: 'activeNote'
+  }), {
+    filteredNotes () {
+      if (this.show === 'all') {
         return this.notes
       } else if (this.show === 'favorites') {
         return this.notes.filter(note => note.favorite)
       }
     }
-    })  
+  })
 }
 </script>

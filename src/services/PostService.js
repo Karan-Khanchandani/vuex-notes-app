@@ -9,7 +9,7 @@ export default {
     return Api().post('notes', params)
   },
 
-  updateNote (id,params) {
+  updateNote (id, params) {
     return Api().put('notes/' + id, params)
   },
 

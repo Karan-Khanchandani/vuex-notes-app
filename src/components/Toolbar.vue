@@ -12,15 +12,15 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 export default {
-    computed :  mapGetters({
-            activeNote: 'activeNote'
-        }),
-    methods : mapActions([
-        'addNote',
-      'deleteNote',
-      'toggleFavorite',
-      'saveNote'
-    ])
+  computed: mapGetters({
+    activeNote: 'activeNote'
+  }),
+  methods: mapActions([
+    'addNote',
+    'deleteNote',
+    'toggleFavorite',
+    'saveNote'
+  ])
 }
 
 </script>
